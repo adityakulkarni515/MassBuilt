@@ -14,11 +14,17 @@ async function approvedToAddInAdmin(req,res){
       }
     
       checkIfAdminIdGenerated= await Applicant.findOne({ emailId:body.emailId  })
-    
-      if(!checkIfAdminIdGenerated)
+
+
+      
+
+
+      
+    if(!checkIfAdminIdGenerated)
       {
       return res.status(400).json({message:"Applicant does not exist"})
       }
+      
     
     
       const addUserAsApplicatnt = await Admin.create({
