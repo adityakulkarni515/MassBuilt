@@ -6,6 +6,7 @@ app.use(bodyParser.json());
 app.use(express.json())
 const userRouter=require("./routes/application")
 const AdminRouter=require("./routes/admin")
+const GymRouter=require("./routes/gym")
 const {connectToMongoDb}=require("./connections")
 
 
@@ -14,6 +15,7 @@ connectToMongoDb('mongodb://127.0.0.1:27017/mymongo')
 
 app.use("/",userRouter)
 app.use("/",AdminRouter)
+app.use("/",GymRouter)
 
 
 

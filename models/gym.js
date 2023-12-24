@@ -17,12 +17,12 @@ const gymSchema= new mongoose.Schema({
     }
     ,
     contactDetails:{
-        type:String,
+        type:Number,
         required:true
     }
     ,
     areaCode:{
-        type:String,
+        type:Number,
         required:true
     },
     timing:{
@@ -31,12 +31,12 @@ const gymSchema= new mongoose.Schema({
     }
     ,
     services:{
-        type:Object,
+        type:Array,
         required:true
     }
     ,
     facilities:{
-        type:Object,
+        type:Array,
         required:true
     }
     ,
@@ -44,7 +44,7 @@ const gymSchema= new mongoose.Schema({
         
         data: Buffer,
         contentType:String,
-        required:false
+        
     }
     ,subscriptions:
     {   
