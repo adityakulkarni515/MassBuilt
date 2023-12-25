@@ -8,44 +8,44 @@ async function memberSubscription(req,res){
 
     let body=req.body
 
-    if(!body ||!body.gymId||!body.name||!body.gymName||!body.contactDetails||!body.sex||!body.subscriptions||!body.facilities||!body.services||!body.timing||!body.areaCode)
+    console.log(body)
+
+    if(!body ||!body.gymId||!body.name||!body.gymName||!body.contactNumber||!body.sex||!body.age||!body.service||!body.memberId||!body.userId)
       {
         return res.status(400).json({message: 'All the field are required'})
       }
     
-      check = await Gym.findOne({ gymId:body.gymId })
+    checkUserId= await Member.findOne({ userId:body.userId })
+    if(checkUserId)
+{
+    return res.status(400).json({message:"you have already subscribed to this gym "})
+}
+
+      checkMemberId = await Member.findOne({ memberId:body.memberId })
     //to check if there is any other gym already with this gym id 
-      if(check)
+      if(checkMemberId)
       {
-      return res.status(400).json({message:"This Gym ID is already been hosted by other please enter your Gym ID "})
+      return res.status(400).json({message:"This member Id is already existing  "})
       }
-      //to check he is admin or not
-      checkAlreadyAdmin= await Admin.findOne({ gymId:req.body.gymId  })
-
-      if(!checkAlreadyAdmin){
-       return res.status(400).json({message: "gym host is not an Admin cannot host the gym"})
-      }
-
+      
     
-    
-      const addGymDetails = await Gym.create({
+      const addMemberDetails = await Member.create({
     
         gymId : body.gymId,
         name :body.name,
         gymName:body.gymName,
-        contactDetails:body.contactDetails,
-        address:body.address,
-        subscriptions:body.subscriptions,
-        facilities:body.facilities,
-        timing:body.timing,
-        areaCode:body.areaCode,
-        services:body.services,
-        gymMedia:body.gymMedia
+        contactNumber:body.contactNumber,
+        age:body.age,
+        sex:body.sex,
+        userId:body.userId,
+        service:body.service,
+        memberId:body.memberId
+        
 
       });
     
-      console.log('result', addGymDetails)
-      return res.status(201).json({msg: 'Your gym has been hosted successfully'})
+      console.log('result', addMemberDetails)
+      return res.status(201).json({msg: 'you have suscribed to gym successfully'})
     }
 
-    module.exports={hostGymOnApp}
+    module.exports={memberSubscription}

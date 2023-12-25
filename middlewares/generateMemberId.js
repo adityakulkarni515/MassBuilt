@@ -1,8 +1,10 @@
-const memberId = Math.floor(randomDecimal * (max - min + 1) + min);
+
 
 
 const Admin=require("../models/admin");
 const MemberCredential = require("../models/memberCredential");
+const Member=require("../models/members")
+
 
 
 
@@ -12,7 +14,7 @@ async function generateMemberId(req, res, next) {
         console.log("hi middleware from memberid creation")
 
 
-        checkAlreadyUser= await MemberCredential.findOne({ emailId:req.body.emailId  })
+        checkAlreadyUser= await MemberCredential.findOne({ userId:req.body.userId  })
 
       if(!checkAlreadyUser){
        return res.status(400).json({message: "he is not the user not registered"})
@@ -21,7 +23,9 @@ async function generateMemberId(req, res, next) {
     
         // Generate a random number between 10000000 and 99999999
        
-        const memberId = Math.floor(randomDecimal * (99999999 - 10000000 + 1) + 10000000);
+        let memberId = Math.floor(Math.random()* (99999999 - 10000000 + 1) + 10000000);
+
+        console.log(memberId)
 
         
         
