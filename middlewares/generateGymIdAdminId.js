@@ -37,7 +37,7 @@ async function generateAdminId(req, res, next) {
 
 
 
-async function generategymId(req, res, next) {
+async function generateGymId(req, res, next) {
     try {
         // Generate a random number between 100000000 and 999999999
         const gymId = Math.floor(Math.random() * (999999999 - 100000000 + 1)) + 100000000;
@@ -57,5 +57,5 @@ async function generategymId(req, res, next) {
 
 
 module.exports={
-    generateAdminId,generategymId
+    generateAdminId,generateGymId
 }

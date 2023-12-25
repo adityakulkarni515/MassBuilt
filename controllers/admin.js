@@ -8,7 +8,7 @@ async function approvedToAddInAdmin(req,res){
 
     console.log(body)
 
-    if(!body ||!body.emailId||!body.gymName||!body.name|!body.gymId||!body.contactNumber||!body.adminId)
+    if(!body ||!body.emailId||!body.gymName||!body.name||!body.contactNumber||!body.adminId)
       {
         return res.status(400).json({message: 'All the field are required'})
       }
@@ -34,7 +34,7 @@ async function approvedToAddInAdmin(req,res){
         gymName:body.gymName,
         contactNumber:body.contactNumber,
         adminId:body.adminId,
-        gymId:body.gymId
+        
     
       });
     

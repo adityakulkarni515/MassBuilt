@@ -11,11 +11,7 @@ const adminSchema= new mongoose.Schema({
         type:String,
         required : true,
     }
-    ,
-    gymId:{
-        type:String,
-        required : true,
-    }
+  
     ,
     emailId:{
         type:String,

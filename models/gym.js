@@ -3,7 +3,16 @@ const mongoose = require('mongoose');
 
 const gymSchema= new mongoose.Schema({
 
+    adminId:{
+        type:String,
+        required : true,
+    },
+
     gymId:{
+        type:String,
+        required : true,
+    },
+    gymName:{
         type:String,
         required : true,
     },

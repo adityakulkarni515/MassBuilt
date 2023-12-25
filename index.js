@@ -9,6 +9,7 @@ const AdminRouter=require("./routes/admin")
 const GymRouter=require("./routes/gym")
 const MemberCredentialRouter=require("./routes/memberCredential")
 const AdminCredentialRouter=require("./routes/adminCredential")
+const GetGymListRouter=require("./routes/getGymList")
 const {connectToMongoDb}=require("./connections")
 
 
@@ -20,6 +21,7 @@ app.use("/",AdminRouter)
 app.use("/",GymRouter)
 app.use("/",MemberCredentialRouter)
 app.use("/",AdminCredentialRouter)
+app.use("/",GetGymListRouter)
 
 
 app.listen(port, () => {

@@ -4,6 +4,8 @@ const{hostGymOnApp}=require("../controllers/gym")
 
 const router=express.Router()
 
-router.post('/gymhosting', hostGymOnApp)
+const { generateGymId}=require("../middlewares/generateGymIdAdminId")
+
+router.post('/gymhosting', generateGymId,hostGymOnApp)
 
 module.exports=router
