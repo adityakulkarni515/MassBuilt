@@ -39,4 +39,38 @@ async function memberSignUp(req,res){
       return res.status(201).json({msg: 'You have been registered successfully'})
     }
 
-    module.exports={memberSignUp}
+
+
+    async function memberSignIn (req, res) {
+      let body  = req.body;
+  
+      try {
+          const existingUser= await MemberCredential.findOne({ userId:body.userId });
+          if (!existingUser) {
+              return res.status(404).json({ message: "User not found" });
+          }
+          const matchPassword= await bcrypt.compare(body.password, existingUser.password)
+          if (!matchPassword) {
+              return res.status(401).json({ message: "incorrect id or password" });
+
+          }
+
+          else{
+              return res.status(200).json({message:"User logged in successfully"})
+          }
+          // } else {
+  
+          //     const token =jwt.sign({User_ID:existingUser.User_ID,     id:existingUser._id},   KEY)
+          //     return res.status(200).json({ message: "user logged in " ,token : token});
+          // }
+  
+          
+  
+      } catch (error) {
+          console.error(error);
+          return res.status(500).json({ message: "Something went wrong" });
+      }
+  };
+  
+
+    module.exports={memberSignUp,memberSignIn}
