@@ -27,6 +27,15 @@ const memberSchema= new mongoose.Schema({
     sex:{
         type:String,
         required:true
+    },
+    gymName:{
+        type:String,
+        required:true
+    }
+    ,
+    gymId:{
+        type:String,
+        required:true
     }
     })
 

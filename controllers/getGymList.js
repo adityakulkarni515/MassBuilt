@@ -17,7 +17,7 @@ async function getGymList(req,res){
       
       console.log(checkIsGym)
     //to check if there is any other gym already with this gym id 
-      if(!checkIsGym)
+      if(checkIsGym.length===0)
       {
       return res.status(400).json({message:"currently no gym in this Area, Sorry for inconvinence"})
       }
