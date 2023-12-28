@@ -16,7 +16,7 @@ const memberSchema= new mongoose.Schema({
         type:Number,
         required:true
     },
-    userId:{
+    emailId:{
         type:String,
         required:true
     },
@@ -40,7 +40,8 @@ const memberSchema= new mongoose.Schema({
     service:{
         type:String,
         required:true
-    }
+    },
+   
     })
 
  const Member= mongoose.model('member', memberSchema)

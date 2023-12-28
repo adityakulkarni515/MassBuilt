@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const memberCredentialSchema= new mongoose.Schema({
 
-    userId:{
+    emailId:{
         type:String,
         required : true,
     }

@@ -14,7 +14,7 @@ async function generateMemberId(req, res, next) {
         console.log("hi middleware from memberid creation")
 
 
-        checkAlreadyUser= await MemberCredential.findOne({ userId:req.body.userId  })
+        checkAlreadyUser= await MemberCredential.findOne({ emailId:req.body.emailId  })
 
       if(!checkAlreadyUser){
        return res.status(400).json({message: "he is not the user not registered"})
@@ -31,7 +31,7 @@ async function generateMemberId(req, res, next) {
         
         // Attach the generated gymId to the request object
         req.body.memberId = memberId;
-
+       
         
 
         // Call next() to pass control to the next middleware or route handler

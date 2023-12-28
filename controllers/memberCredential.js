@@ -9,12 +9,12 @@ async function memberSignUp(req,res){
 
     let body=req.body
 
-    if(!body ||!body.userId||!body.password)
+    if(!body ||!body.emailId||!body.password)
       {
         return res.status(400).json({message: 'All the field are required'})
       }
     
-      check = await MemberCredential.findOne({ userId:body.userId})
+      check = await MemberCredential.findOne({ emailId:body.emailId})
     //to check if there is any other gym already with this gym id 
       if(check)
       {
@@ -30,7 +30,7 @@ async function memberSignUp(req,res){
     
       const addMemberCredential = await MemberCredential.create({
     
-        userId: body.userId,
+        emailId: body.emailId,
         password:hashPassword
 
       });
@@ -45,7 +45,7 @@ async function memberSignUp(req,res){
       let body  = req.body;
   
       try {
-          const existingUser= await MemberCredential.findOne({ userId:body.userId });
+          const existingUser= await MemberCredential.findOne({ emailId:body.emailId });
           if (!existingUser) {
               return res.status(404).json({ message: "User not found" });
           }
