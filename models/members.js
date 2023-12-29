@@ -9,12 +9,12 @@ const memberSchema= new mongoose.Schema({
     },
     name:{
         type:String,
-        required:true
+        required:false
     }
     ,
     contactNumber:{
         type:Number,
-        required:true
+        required:false
     },
     emailId:{
         type:String,
@@ -22,24 +22,24 @@ const memberSchema= new mongoose.Schema({
     },
     age:{
         type:Number,
-        required:true
+        required:false
     },
     sex:{
         type:String,
-        required:true
+        required:false
     },
     gymName:{
         type:String,
-        required:true
+        required:false
     }
     ,
     gymId:{
         type:String,
-        required:true
+        required:false
     },
-    service:{
+    status:{
         type:String,
-        required:true
+        required:false
     },
    
     })

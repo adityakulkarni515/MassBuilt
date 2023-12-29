@@ -11,7 +11,9 @@ const MemberCredentialRouter=require("./routes/memberCredential")
 const AdminCredentialRouter=require("./routes/adminCredential")
 const GetGymListRouter=require("./routes/getGymList")
 const GymSubscriptionRouter=require("./routes/memberSubscription")
+const addMemberDetailsRouter=require("./routes/addMemberDetails")
 const {connectToMongoDb}=require("./connections")
+
 
 
 connectToMongoDb('mongodb://127.0.0.1:27017/mymongo')
@@ -24,7 +26,7 @@ app.use("/",MemberCredentialRouter)
 app.use("/",AdminCredentialRouter)
 app.use("/",GetGymListRouter)
 app.use("/",GymSubscriptionRouter)
-
+app.use("/",addMemberDetailsRouter)
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

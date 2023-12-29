@@ -1,5 +1,7 @@
 
 const MemberCredential=require("../models/memberCredential")
+
+const Member=require("../models/members")
 const bcrypt=require("bcrypt")
 
 
@@ -34,8 +36,14 @@ async function memberSignUp(req,res){
         password:hashPassword
 
       });
+
+      const addMemebrIdToMember=await Member.create({
+        memberId:body.memberId,
+        emailId:body.emailId,
+        status:"guest"
+      })
     
-      console.log('result', addMemberCredential)
+      console.log('result', addMemberCredential,addMemebrIdToMember)
       return res.status(201).json({msg: 'You have been registered successfully'})
     }
 

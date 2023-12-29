@@ -12,18 +12,25 @@ async function addMemberDetails(req,res){
         return res.status(400).json({message: 'All the field are required'})
     }
 
-    const addMemberDetails = await Member.create({
-        
-        gymId : body.gymId,
-        name :body.name,
-        gymName:body.gymName,
-        contactNumber:body.contactNumber,
-        age:body.age,
-        sex:body.sex,
-        emailId:body.emailId,
-        service:body.service,
-        memberId:body.memberId
+    const updateMemberDetails=await Member.findOneAndUpdate(
+        { memberId: body.memberId },
+        {
+          $set: {
+            name: body.name, // Add the remaining fields and their values here
+            contactNumber:body.contactNumber,
+            age: body.age,
+            sex: body.sex,
+            status:"prospect"
+           
+          },
+        }
+        )
 
-    });
+        console.log('result',updateMemberDetails)
+        return res.status(201).json({msg: 'you have suscribed to gym successfully'})
 
+}
+
+module.exports={addMemberDetails
+    
 }

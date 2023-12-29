@@ -13,17 +13,11 @@ async function generateMemberId(req, res, next) {
 
         console.log("hi middleware from memberid creation")
 
-
-        checkAlreadyUser= await MemberCredential.findOne({ emailId:req.body.emailId  })
-
-      if(!checkAlreadyUser){
-       return res.status(400).json({message: "he is not the user not registered"})
-      }
-
     
         // Generate a random number between 10000000 and 99999999
        
         let memberId = Math.floor(Math.random()* (99999999 - 10000000 + 1) + 10000000);
+
 
         console.log(memberId)
 

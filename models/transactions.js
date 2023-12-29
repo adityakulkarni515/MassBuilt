@@ -30,6 +30,13 @@ const transactionSchema= new mongoose.Schema({
         type:Number,
         required: false
     }
+    ,
+    status:
+    {   
+        type:String,
+        required: false
+    }
+    
 
     })
 
