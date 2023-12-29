@@ -28,19 +28,14 @@ const memberSchema= new mongoose.Schema({
         type:String,
         required:false
     },
-    gymName:{
-        type:String,
-        required:false
-    }
-    ,
-    gymId:{
-        type:String,
-        required:false
-    },
     status:{
         type:String,
         required:false
     },
+    subscriptionDetails:{
+        type: String,
+        required:false
+    }
    
     })
 
