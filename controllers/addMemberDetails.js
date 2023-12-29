@@ -27,7 +27,7 @@ async function addMemberDetails(req,res){
         )
 
         console.log('result',updateMemberDetails)
-        return res.status(201).json({msg: 'you have suscribed to gym successfully'})
+        return res.status(201).json({msg: 'your details are added successfully'})
 
 }
 
