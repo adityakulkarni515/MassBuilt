@@ -32,7 +32,7 @@ const memberSchema= new mongoose.Schema({
         type:String,
         required:false
     },
-    subscriptionDetails:{
+    transactionId:{
         type: String,
         required:false
     }

@@ -1,57 +1,70 @@
 const Transaction=require("../models/transactions")
 const Member=require("../models/members")
-const {updateMemberSubscription} =require("../controllers/updateMemberSubscription")
+const {updatePendingSubscription} =require("./updatePendingSubscription")
 
+const ONE_MONTH = 2592000
+const ONE_DAY = 86400
   
 async function calculateFutureDate(numberOfMonths) {
-  const currentDate = new Date();
+  const currentDate = Date.now();
 
-  // Calculate the future date
-  const futureDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + numberOfMonths, currentDate.getDate());
+  const date = new Date(currentDate + numberOfMonths * ONE_MONTH * 1000)
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // Months are zero-based, so add 1
+  const day = date.getDate();
 
-  // Format the result as a string (you can customize the format as needed)
-  const formattedFutureDate = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1).toString().padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
+// Create a formatted date string
+  const futureDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
 
-  return formattedFutureDate;
+  console.log(futureDate)
+  return futureDate;
 }
 
-async function memberSubscription(req,res){
+async function memberSubscription(req,res,next){
 
     
-  checkUserId= await Member.findOne({ emailId:body.emailId })
-
-  if(checkUserId){
-    return res.status(400).json({message:"you have already subscribed to this gym "})
+  body = req.body
+  currentDate = Date.now()
+  console.log(currentDate)
+  if(!(body.gymId && body.service && body.memberId && body.transactionId && body.startDate && body.duration)){
+    return res.status(400).json({message:"Request Payload not correct"})
   }
 
   checkMemberId = await Member.findOne({ memberId:body.memberId })
   //to check if there is any other gym already with this gym id 
-  if(checkMemberId){
-    return res.status(400).json({message:"This member Id is already existing  "})
+  if(!checkMemberId){
+    return res.status(400).json({message:"This member Id is does not exist"})
   }
 
-  if(transactionDetails.startDate - Date() <= 15){
-    return res.status(400).js
+
+  if(body.startDate - Date.now() <= 15 * ONE_DAY && body.startDate - Date() >= 0){
+    return res.status(400).json({message:"Date is more than 15 days"})
   }
   
   const futureDate = await calculateFutureDate(body.duration);
+ 
   console.log(`Future Date (${body.duration} months later): ${futureDate}`);
   
   const addTransactionDetails = await Transaction.create({
     gymId : body.gymId,
     service:body.service,
     memberId:body.memberId,
-    transactionId: transactionId,
+    transactionId: body.transactionId,
     startDate: body.startDate,
     duration:body.duration,
     endDate:futureDate,
     status: "Pending"
   })
 
-  updateMemberSubscription(transactionId)
+  console.log(Date.now())
 
-  console.log('result',addMemberDetails, addTransactionDetails,addMemberStatus)
-  return res.status(201).json({msg: 'You have suscribed to gym successfully'})
+  if(body.startDate - Date.now() <= 1 * ONE_DAY){
+    next()
+  }
+  else{
+    return res.status(400).json({message:"Your subscription will be added on chosen date"}) 
+  }
+
 }
 
 module.exports={memberSubscription}
