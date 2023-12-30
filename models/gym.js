@@ -54,12 +54,13 @@ const gymSchema= new mongoose.Schema({
         data: Buffer,
         contentType:String,
         
-    }
-    ,subscriptions:
-    {   
-        type:Object,
-        required:true
-    }
+    },
+    subscriptionDetails: [
+        {
+          type: Map,
+          of: Map,
+        },
+      ],
 
     })
 
