@@ -1,15 +1,23 @@
 const mongoose = require('mongoose');
 
 const adminChangesSchema = new mongoose.Schema({
-    status: {
+
+
+
+    changeRequestId: {
       type: String,
       required: true,
     },
     adminId: {
-      type: String,
+      type: Number,
       required: true,
     },
     gymId: {
+        type: Number,
+        required: true,
+      },
+
+      status: {
         type: String,
         required: true,
       },
@@ -20,9 +28,15 @@ const adminChangesSchema = new mongoose.Schema({
         of: Map,
       },
     ],
+    changeDate: {
+      type: Date,
+      required: true,
+    },
+
+
   });
   
-  const AdminChanges = mongoose.model('adminChanges', adminChangesSchema);
+  const AdminChanges = mongoose.model('adminChange', adminChangesSchema);
   
   module.exports = AdminChanges;
   

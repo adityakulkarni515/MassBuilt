@@ -14,6 +14,7 @@ const GymSubscriptionRouter=require("./routes/memberSubscription")
 const addMemberDetailsRouter=require("./routes/addMemberDetails")
 const adminChangesRouter=require("./routes/adminChanges")
 const updatePendingSubscriptionRoute= require('./routes/updatePendingSubscription');
+const adminGymUpdate=require("./routes/pendingAdminGymUpdate")
 const {connectToMongoDb}=require("./connections");
 
 
@@ -32,7 +33,7 @@ app.use("/",GymSubscriptionRouter)
 app.use("/",addMemberDetailsRouter)
 app.use("/",adminChangesRouter)
 app.use("/",updatePendingSubscriptionRoute)
-
+// app.use("/",adminChangesRouter)
 
 
 

@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 
 const gymSchema= new mongoose.Schema({
 
+    changeRequestId:{
+        type:Number,
+        required : false,
+    },
+
     adminId:{
         type:Number,
         required : true,

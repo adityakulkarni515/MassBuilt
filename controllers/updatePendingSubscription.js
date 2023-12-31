@@ -53,7 +53,7 @@ async function updatePendingSubscription(req,res){
       { memberId: body.memberId },
       {
           $set: {
-              transactionId: req.body.transactionId,
+              transactionId:body.transactionId,
               status:"active",
               subscriptionDetails:body.subscriptionDetails,
               gymId:body.gymId
