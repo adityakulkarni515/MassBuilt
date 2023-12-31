@@ -4,16 +4,16 @@ const mongoose = require('mongoose');
 const transactionSchema= new mongoose.Schema({
 
     transactionId:{
-        type:String,
+        type:Number,
         required : true,
     },
     memberId:{
-        type:String,
+        type:Number,
         required : true,
     }
     ,
     gymId:{
-        type:String,
+        type:Number,
         required : false,
     }
     ,

@@ -7,6 +7,10 @@ const memberSchema= new mongoose.Schema({
         type:Number,
         required : true,
     },
+    gymId:{
+        type:Number,
+        required : true,
+    },
     name:{
         type:String,
         required:false
@@ -33,7 +37,7 @@ const memberSchema= new mongoose.Schema({
         required:false
     },
     transactionId:{
-        type: String,
+        type: Number,
         required:false
     },
     subscriptionDetails: 

@@ -4,12 +4,12 @@ const mongoose = require('mongoose');
 const gymSchema= new mongoose.Schema({
 
     adminId:{
-        type:String,
+        type:Number,
         required : true,
     },
 
     gymId:{
-        type:String,
+        type:Number,
         required : true,
     },
     gymName:{

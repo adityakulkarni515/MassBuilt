@@ -47,8 +47,8 @@ async function updatePendingSubscription(req,res){
           $set: {
               transactionId: req.body.transactionId,
               status:"active",
-              subscriptionDetails:body.subscriptionDetails
-
+              subscriptionDetails:body.subscriptionDetails,
+              gymId:body.gymId
           },
       }
   )
