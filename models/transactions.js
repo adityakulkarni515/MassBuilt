@@ -41,7 +41,13 @@ const transactionSchema= new mongoose.Schema({
         type:Number,
         required: false
     }
-    
+    ,
+    subscriptionDetails: 
+    {
+      type: Map,
+      of: Map,
+    },
+  
     
 
     })
