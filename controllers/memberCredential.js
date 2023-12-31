@@ -33,7 +33,8 @@ async function memberSignUp(req,res){
       const addMemberCredential = await MemberCredential.create({
     
         emailId: body.emailId,
-        password:hashPassword
+        password:hashPassword,
+        memberId:body.memberId
 
       });
 

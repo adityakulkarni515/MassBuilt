@@ -11,6 +11,10 @@ const memberCredentialSchema= new mongoose.Schema({
         type:String,
         required: false
     },
+    memberId:{
+        type:Number,
+        required: true
+    },
    
 
     })

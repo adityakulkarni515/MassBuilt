@@ -30,7 +30,7 @@ async function updatePendingSubscription(req,res){
 
   const unix_timestamp = Date.now()
   const currentDate = await unixToDate(unix_timestamp)
-  const startDate = await unixToDate(body.startDate)
+  const startDate = await unixToDate((body.startDate)*1000)
 
   console.log(currentDate, startDate)
   if( startDate != currentDate){
@@ -46,7 +46,9 @@ async function updatePendingSubscription(req,res){
       {
           $set: {
               transactionId: req.body.transactionId,
-              status:"active"
+              status:"active",
+              subscriptionDetails:body.subscriptionDetails
+
           },
       }
   )

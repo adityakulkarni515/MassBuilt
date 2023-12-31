@@ -35,8 +35,13 @@ const memberSchema= new mongoose.Schema({
     transactionId:{
         type: String,
         required:false
-    }
-   
+    },
+    subscriptionDetails: 
+        {
+          type: Map,
+          of: Map,
+        },
+      
     })
 
  const Member= mongoose.model('member', memberSchema)
