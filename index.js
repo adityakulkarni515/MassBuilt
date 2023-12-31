@@ -13,7 +13,9 @@ const GetGymListRouter=require("./routes/getGymList")
 const GymSubscriptionRouter=require("./routes/memberSubscription")
 const addMemberDetailsRouter=require("./routes/addMemberDetails")
 const adminChangesRouter=require("./routes/adminChanges")
-const {connectToMongoDb}=require("./connections")
+const updatePendingSubscriptionRoute= require('./routes/updatePendingSubscription');
+const {connectToMongoDb}=require("./connections");
+
 
 
 
@@ -29,6 +31,15 @@ app.use("/",GetGymListRouter)
 app.use("/",GymSubscriptionRouter)
 app.use("/",addMemberDetailsRouter)
 app.use("/",adminChangesRouter)
+app.use("/",updatePendingSubscriptionRoute)
+
+
+
+
+
+
+
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

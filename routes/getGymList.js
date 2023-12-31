@@ -1,7 +1,7 @@
 const express= require("express")
 
 const{getGymList}=require("../controllers/getGymList")
-const { get } = require("mongoose")
+
 
 const router=express.Router()
 

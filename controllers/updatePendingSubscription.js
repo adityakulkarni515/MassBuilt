@@ -16,9 +16,14 @@ async function unixToDate(unix_timestamp){
 
 async function updatePendingSubscription(req,res){
 
-  const transactionDetails = await Transaction.findOne({transactionId: req.body.transactionId})
+  body=req.body
+
+  const transactionDetails = await Transaction.findOne({transactionId: body.transactionId})
+
+  console.log(transactionDetails)
   console.log("updatePending")
-  if(transactionDetails.status != "Pending"){
+  console.log(transactionDetails.status )
+  if(transactionDetails.status != 'Pending'){
     return res.status(400).json({message:"Transaction is not in pending"})
   }
 
@@ -27,6 +32,11 @@ async function updatePendingSubscription(req,res){
   if(!memberDetails){
     return res.status(400).json({message:"This member id does not exist"})
   }
+
+  if(memberDetails.status == "active"){
+    return res.status(400).json({message:"Member is already subscribed to another subscription"})
+  }
+
 
   const unix_timestamp = Date.now()
   const currentDate = await unixToDate(unix_timestamp)
@@ -37,9 +47,7 @@ async function updatePendingSubscription(req,res){
     return res.status(400).json({message:"Today is not the start date of subscription"})
   }
 
-  if(memberDetails.status == "active"){
-    return res.status(400).json({message:"Member is already subscribed to another subscription"})
-  }
+  
 
   const updateMemberDetails = await Member.findOneAndUpdate(
       { memberId: body.memberId },

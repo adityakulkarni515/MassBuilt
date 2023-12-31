@@ -42,6 +42,11 @@ async function memberSubscription(req,res,next){
     return res.status(400).json({message:"This gym Id is does not exist"})
   }
 
+  if(checkMemberId.status == "active"){
+    return res.status(400).json({message:"Member is already subscribed to another subscription"})
+  }
+
+
 
 
   if(!((body.startDate)*1000 - Date.now() <= 15 * ONE_DAY && (body.startDate)*1000 - Date.now() >= 0)){
