@@ -30,7 +30,7 @@ async function adminSubscriptionChanges(req,res,next){
 
   if(!((body.changeDate)*1000 - Date.now() >= 0)){
 
-    res.status(400).json({message:"invalid change date entered"})
+    return res.status(400).json({message:"invalid change date entered"})
 
   }
 
@@ -51,7 +51,7 @@ async function adminSubscriptionChanges(req,res,next){
     )
 
 
-    if(body.changeDate - Date.now() <= 1 * ONE_DAY){
+    if((body.changeDate)*1000 - Date.now() <= 1 * ONE_DAY){
       next()
     }
 
