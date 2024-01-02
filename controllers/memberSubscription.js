@@ -1,7 +1,7 @@
 const Transaction=require("../models/transactions")
 const Member=require("../models/members")
 const Gym=require("../models/gym")
-const {calculateFutureDate, unixToDateString} =require("../utils/unixUtils")
+const {calculateFutureDate, unixToDateString, ONE_DAY} =require("../utils/unixUtils")
 
 
 
@@ -27,15 +27,26 @@ async function memberSubscription(req,res,next){
   if(checkMemberId.status == "active"){
     return res.status(400).json({message:"Member is already subscribed to another subscription"})
   }
+  console.log((body.startDate)*1000 - Date.now())
+  console.log(15 * ONE_DAY)
 
-  if(!((body.startDate)*1000 - Date.now() <= 15 * ONE_DAY && (body.startDate)*1000 - Date.now() >= 0)){
+  const startDateNightString = String(body.startDate) + " " + "23:59:59"
+  const startDateNightTimestamp = new Date(startDateNightString).getTime()
+  const nowTimestamp = Date.now()
+  const todayDateString = await unixToDateString(nowTimestamp)
+  const tonightDateString = todayDateString + " " + "23:59:59"
+  const tonightDateTimestamp = new Date(tonightDateString).getTime()
+  const fifteenDaysDate = await Date(nowTimestamp)
+  const endDateString = await calculateFutureDate(body.duration * 30, startDateNightTimestamp)
+
+  console.log(`15 days future date ${fifteenDaysDate}`)
+  console.log(`Future Date (${body.duration} months later): ${endDateString}`);
+
+  console.log(startDateNightTimestamp-tonightDateTimestamp)
+
+  if(!(startDateNightTimestamp - tonightDateTimestamp <= 15 * ONE_DAY && startDateNightTimestamp - nowTimestamp >= 0)){
     return res.status(400).json({message:"Date is more than 15 days"})
   }
-
-  const todayDateString = await unixToDateString(Date.now())
-  const startDateString = await unixToDateString((body.startDate)*1000)
-  const endDateString = await calculateFutureDate(body.duration,(body.startDate)*1000);
-  console.log(`Future Date (${body.duration} months later): ${futureDate}`);
   
   const addTransactionDetails = await Transaction.create({
     gymId : body.gymId,
@@ -43,7 +54,7 @@ async function memberSubscription(req,res,next){
     subscriptionDetails:body.subscriptionDetails,
     memberId:body.memberId,
     transactionId: body.transactionId,
-    startDate: startDateString,
+    startDate: body.startDate,
     duration:body.duration,
     endDate:endDateString,
     status: "Pending"
@@ -51,11 +62,11 @@ async function memberSubscription(req,res,next){
 
   console.log(Date.now())
 
-  if(startDateString == todayDateString){
+  if(body.startDate == todayDateString){
     next()
   }
   else{
-    return res.status(400).json({message:"Your subscription will be added on chosen date"}) 
+    return res.status(201).json({message:"Your subscription will be added on chosen date"}) 
   }
 
 }

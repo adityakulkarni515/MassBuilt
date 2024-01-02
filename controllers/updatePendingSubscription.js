@@ -1,6 +1,6 @@
 const Member=require("../models/members")
 const Transaction=require("../models/transactions")
-const unixToDateString = require("../utils/unixUtils")
+const {unixToDateString} = require("../utils/unixUtils")
 
 async function updatePendingSubscription(req,res){
 

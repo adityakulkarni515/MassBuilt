@@ -1,10 +1,10 @@
 const ONE_MONTH = 2592000000
 const ONE_DAY = 86400000
   
-async function calculateFutureDate(numberOfMonths,startingDateTimestamp) {
+async function calculateFutureDate(numberOfDays,startingDateTimestamp) {
   
 
-  const date = new Date(startingDateTimestamp + numberOfMonths * ONE_MONTH )
+  const date = new Date(startingDateTimestamp + numberOfDays * ONE_DAY )
   const year = date.getFullYear();
   const month = date.getMonth() + 1; // Months are zero-based, so add 1
   const day = date.getDate();
@@ -29,4 +29,4 @@ async function unixToDateString(unix_timestamp){
     return dateString
 }
 
-module.exports={unixToDateString, calculateFutureDate}
+module.exports={unixToDateString, calculateFutureDate, ONE_DAY}
