@@ -23,7 +23,6 @@ async function calculateFutureDate(numberOfMonths,startingDate) {
 
 async function memberSubscription(req,res,next){
 
-    
   body = req.body
   currentDate = Date.now()
   console.log(currentDate)
@@ -45,9 +44,6 @@ async function memberSubscription(req,res,next){
   if(checkMemberId.status == "active"){
     return res.status(400).json({message:"Member is already subscribed to another subscription"})
   }
-
-
-
 
   if(!((body.startDate)*1000 - Date.now() <= 15 * ONE_DAY && (body.startDate)*1000 - Date.now() >= 0)){
     return res.status(400).json({message:"Date is more than 15 days"})
