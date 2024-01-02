@@ -1,32 +1,14 @@
 const Transaction=require("../models/transactions")
 const Member=require("../models/members")
 const Gym=require("../models/gym")
-const {updatePendingSubscription} =require("./updatePendingSubscription")
+const {calculateFutureDate, unixToDateString} =require("../utils/unixUtils")
 
-const ONE_MONTH = 2592000000
-const ONE_DAY = 86400000
-  
-async function calculateFutureDate(numberOfMonths,startingDate) {
-  
 
-  const date = new Date(startingDate + numberOfMonths * ONE_MONTH )
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1; // Months are zero-based, so add 1
-  const day = date.getDate();
-
-// Create a formatted date string
-  const futureDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
-
-  console.log(futureDate)
-  return futureDate;
-}
 
 async function memberSubscription(req,res,next){
-
     
   body = req.body
-  currentDate = Date.now()
-  console.log(currentDate)
+  
   if(!(body.gymId && body.service && body.memberId && body.transactionId && body.startDate && body.duration)){
     return res.status(400).json({message:"Request Payload not correct"})
   }
@@ -46,15 +28,13 @@ async function memberSubscription(req,res,next){
     return res.status(400).json({message:"Member is already subscribed to another subscription"})
   }
 
-
-
-
   if(!((body.startDate)*1000 - Date.now() <= 15 * ONE_DAY && (body.startDate)*1000 - Date.now() >= 0)){
     return res.status(400).json({message:"Date is more than 15 days"})
   }
-  
-  const futureDate = await calculateFutureDate(body.duration,(body.startDate)*1000);
- 
+
+  const todayDateString = await unixToDateString(Date.now())
+  const startDateString = await unixToDateString((body.startDate)*1000)
+  const endDateString = await calculateFutureDate(body.duration,(body.startDate)*1000);
   console.log(`Future Date (${body.duration} months later): ${futureDate}`);
   
   const addTransactionDetails = await Transaction.create({
@@ -63,15 +43,15 @@ async function memberSubscription(req,res,next){
     subscriptionDetails:body.subscriptionDetails,
     memberId:body.memberId,
     transactionId: body.transactionId,
-    startDate: (body.startDate)*1000,
+    startDate: startDateString,
     duration:body.duration,
-    endDate:futureDate,
+    endDate:endDateString,
     status: "Pending"
   })
 
   console.log(Date.now())
 
-  if(body.startDate - Date.now() <= 1 * ONE_DAY){
+  if(startDateString == todayDateString){
     next()
   }
   else{
