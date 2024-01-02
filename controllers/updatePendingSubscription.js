@@ -1,18 +1,6 @@
 const Member=require("../models/members")
 const Transaction=require("../models/transactions")
-
-async function unixToDate(unix_timestamp){
-
-  const date = new Date(unix_timestamp)
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1; // Months are zero-based, so add 1
-  const day = date.getDate();
-
-  // Create a formatted date string
-  const dateString = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
-
-  return dateString
-}
+const unixToDateString = require("../utils/unixUtils")
 
 async function updatePendingSubscription(req,res){
 
@@ -39,8 +27,8 @@ async function updatePendingSubscription(req,res){
 
 
   const unix_timestamp = Date.now()
-  const currentDate = await unixToDate(unix_timestamp)
-  const startDate = await unixToDate((body.startDate)*1000)
+  const currentDate = await unixToDateString(unix_timestamp)
+  const startDate = await unixToDateString((body.startDate)*1000)
 
   console.log(currentDate, startDate)
   if( startDate != currentDate){
