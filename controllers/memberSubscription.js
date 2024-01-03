@@ -36,8 +36,9 @@ async function memberSubscription(req,res,next){
   const todayDateString = await unixToDateString(nowTimestamp)
   const tonightDateString = todayDateString + " " + "23:59:59"
   const tonightDateTimestamp = new Date(tonightDateString).getTime()
-  const fifteenDaysDate = await Date(nowTimestamp)
+  const fifteenDaysDate = await calculateFutureDate(15, nowTimestamp)
   const endDateString = await calculateFutureDate(body.duration * 30, startDateNightTimestamp)
+  const endDateTimeString = endDateString + " " + "23:59:59"
 
   console.log(`15 days future date ${fifteenDaysDate}`)
   console.log(`Future Date (${body.duration} months later): ${endDateString}`);
@@ -45,7 +46,7 @@ async function memberSubscription(req,res,next){
   console.log(startDateNightTimestamp-tonightDateTimestamp)
 
   if(!(startDateNightTimestamp - tonightDateTimestamp <= 15 * ONE_DAY && startDateNightTimestamp - nowTimestamp >= 0)){
-    return res.status(400).json({message:"Date is more than 15 days"})
+    return res.status(400).json({message:"Date is more than 15 days or less than 0 days"})
   }
   
   const addTransactionDetails = await Transaction.create({
@@ -56,7 +57,7 @@ async function memberSubscription(req,res,next){
     transactionId: body.transactionId,
     startDate: body.startDate,
     duration:body.duration,
-    endDate:endDateString,
+    endDate:endDateTimeString,
     status: "Pending"
   })
 
