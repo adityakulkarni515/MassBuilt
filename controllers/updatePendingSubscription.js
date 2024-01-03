@@ -33,7 +33,7 @@ async function updatePendingSubscription(req,res){
   const startDateTime = transactionDetails.startDate
 
   console.log(currentDateTime, startDateTime)
-  if( startDateTime != currentDateTime){
+  if( startDateTime.getTime() != currentDateTime.getTime()){
     return res.status(400).json({message:"Today is not the start date of subscription"})
   }
 
