@@ -38,7 +38,7 @@ async function memberSubscription(req,res,next){
   const tonightDateTimestamp = new Date(tonightDateString).getTime()
   const fifteenDaysDate = await calculateFutureDate(15, nowTimestamp)
   const endDateString = await calculateFutureDate(body.duration * 30, startDateNightTimestamp)
-  const endDateTimeString = endDateString + " " + "23:59:59"
+  const endDateTimeString = endDateString + "T" + "23:59:59.000" + "Z"
 
   console.log(`15 days future date ${fifteenDaysDate}`)
   console.log(`Future Date (${body.duration} months later): ${endDateString}`);
