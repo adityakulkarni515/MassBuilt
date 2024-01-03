@@ -28,14 +28,13 @@ async function updatePendingSubscription(req,res){
 
   const unix_timestamp = Date.now()
   const currentDate = await unixToDateString(unix_timestamp)
-  const startDate = transactionDetails.startDate
+  const currentDateTime = currentDate + " " + "23:59:59"
+  const startDateTime = transactionDetails.startDate
 
-  console.log(currentDate, startDate)
-  if( startDate != currentDate){
+  console.log(currentDateTime, startDate)
+  if( startDateTime != currentDateTime){
     return res.status(400).json({message:"Today is not the start date of subscription"})
   }
-
-  
 
   const updateMemberDetails = await Member.findOneAndUpdate(
       { memberId: body.memberId },
