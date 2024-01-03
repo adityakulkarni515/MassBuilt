@@ -29,7 +29,7 @@ async function updatePendingSubscription(req,res){
   const unix_timestamp = Date.now()
   const currentDate = await unixToDateString(unix_timestamp)
   const currentDateTime = currentDate + "T" + "00:00:00.000" + "Z"
-  const startDateTime = transactionDetails.startDate
+  const startDateTime = String(transactionDetails.startDate)
 
   console.log(currentDateTime, startDateTime)
   if( startDateTime != currentDateTime){
