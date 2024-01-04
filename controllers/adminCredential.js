@@ -43,6 +43,7 @@ async function adminSignUp(req,res){
 
 async function adminSignIn (req, res) {
     let body  = req.body;
+    console.log(body)
 
     try {
         const existingAdmin= await AdminCredential.findOne({ emailId:body.emailId});
@@ -58,6 +59,8 @@ async function adminSignIn (req, res) {
         else{
             return res.status(200).json({message:"admin logged in successfully"})
         }
+
+        
         // } else {
 
         //     const token =jwt.sign({User_ID:existingUser.User_ID,     id:existingUser._id},   KEY)

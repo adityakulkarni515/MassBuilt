@@ -9,7 +9,7 @@ const memberSchema= new mongoose.Schema({
     },
     gymId:{
         type:Number,
-        required : true,
+        required : false,
     },
     name:{
         type:String,
