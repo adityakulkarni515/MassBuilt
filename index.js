@@ -19,6 +19,7 @@ const {connectToMongoDb}=require("./connections");
 
 // password===V7kR3kWBAkbhmDsD
 //password massbuilt===YcMPyR7DBtXiJKpA
+// CURRENT MONGO DB PASSWORD = "QW5p2xL0EkOWWPc4"
 mongoDbCloudUrl="mongodb+srv://adityakulkarni515:QW5p2xL0EkOWWPc4@cluster0.zgh3orl.mongodb.net/"
 
 
