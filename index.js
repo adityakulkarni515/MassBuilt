@@ -17,10 +17,14 @@ const updatePendingSubscriptionRoute= require('./routes/updatePendingSubscriptio
 const adminGymUpdate=require("./routes/pendingAdminGymUpdate")
 const {connectToMongoDb}=require("./connections");
 
+// password===V7kR3kWBAkbhmDsD
+//password massbuilt===YcMPyR7DBtXiJKpA
+mongoDbCloudUrl="mongodb+srv://adityakulkarni515:QW5p2xL0EkOWWPc4@cluster0.zgh3orl.mongodb.net/"
 
 
 
-connectToMongoDb('mongodb://127.0.0.1:27017/mymongo')
+
+connectToMongoDb(mongoDbCloudUrl)
 
 
 app.use("/",userRouter)
