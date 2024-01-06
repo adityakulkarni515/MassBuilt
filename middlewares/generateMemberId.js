@@ -11,6 +11,18 @@ const Member=require("../models/members")
 async function generateMemberId(req, res, next) {
     try {
 
+
+        body=req.body
+
+        check = await MemberCredential.findOne({ emailId:body.emailId})
+
+        if(check)
+      {
+      return res.status(400).json({message:"This email is already registered"})
+      }
+
+
+        
         console.log("hi middleware from memberid creation")
 
     
@@ -24,7 +36,7 @@ async function generateMemberId(req, res, next) {
         
         
         // Attach the generated gymId to the request object
-        req.body.memberId = memberId;
+        body.memberId = memberId;
        
         
 
