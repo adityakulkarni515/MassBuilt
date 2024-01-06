@@ -1,0 +1,7 @@
+JavaScript specific gitignore
+node_modules
+bower_components
+dist
+build
+.npm
+.env

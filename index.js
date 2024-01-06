@@ -17,15 +17,20 @@ const updatePendingSubscriptionRoute= require('./routes/updatePendingSubscriptio
 const adminGymUpdate=require("./routes/pendingAdminGymUpdate")
 const {connectToMongoDb}=require("./connections");
 
+require('dotenv').config()
+
+
 // password===V7kR3kWBAkbhmDsD
 //password massbuilt===YcMPyR7DBtXiJKpA
 // CURRENT MONGO DB PASSWORD = "QW5p2xL0EkOWWPc4"
-mongoDbCloudUrl="mongodb+srv://adityakulkarni515:QW5p2xL0EkOWWPc4@cluster0.zgh3orl.mongodb.net/"
+// mongoDbCloudUrl=
+
+console.log(process.env.DB_PASS)
 
 
 
 
-connectToMongoDb(mongoDbCloudUrl)
+connectToMongoDb(process.env.DB_PASS)
 
 
 app.use("/",userRouter)
@@ -44,8 +49,15 @@ app.use("/",updatePendingSubscriptionRoute)
 
 
 
+// for local run
+
+// app.listen(port, () => {
+//   console.log(`Server is running on http://localhost:${port}`);
+// });
 
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+// cloud hosting
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on http://localhost:${process.env.PORT}`);
 });
