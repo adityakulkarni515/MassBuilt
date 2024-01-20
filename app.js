@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 4000
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(express.json())
@@ -19,21 +19,23 @@ const {connectToMongoDb}=require("./connections");
 
 require('dotenv').config()
 
+const PORT = process.env.PORT||4000
+
 
 // password===V7kR3kWBAkbhmDsD
 //password massbuilt===YcMPyR7DBtXiJKpA
 // CURRENT MONGO DB PASSWORD = "QW5p2xL0EkOWWPc4"
-mongoDbCloudUrl="mongodb+srv://adityakulkarni515:QW5p2xL0EkOWWPc4@cluster0.zgh3orl.mongodb.net/"
+// mongoDbCloudUrl="mongodb+srv://adityakulkarni515:QW5p2xL0EkOWWPc4@cluster0.zgh3orl.mongodb.net/"
 
-// console.log(process.env.DB_PASS)
-
-
+console.log(process.env.DB_PASS)
 
 
-connectToMongoDb( mongoDbCloudUrl)
 
 
-// connectToMongoDb(process.env.DB_PASS)
+// connectToMongoDb( mongoDbCloudUrl)
+
+
+connectToMongoDb(process.env.DB_PASS)
 
 
 app.use("/",userRouter)
@@ -54,13 +56,13 @@ app.use("/",updatePendingSubscriptionRoute)
 
 // for local run
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 
 // cloud hosting
 
-// app.listen(process.env.PORT, () => {
-//   console.log(`Server is running on http://localhost:${process.env.PORT}`);
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
 // });
