@@ -45,6 +45,10 @@ const memberSchema= new mongoose.Schema({
           type: Map,
           of: Map,
         },
+    applicableCouponCodes:{
+        type: [String],
+        required: false
+    }
       
     })
 
