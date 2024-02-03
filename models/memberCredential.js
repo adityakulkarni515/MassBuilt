@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const memberCredentialSchema= new mongoose.Schema({
 
+    googleEmailId:{
+        type:String,
+        required : true,
+    },
     emailId:{
         type:String,
         required : true,
