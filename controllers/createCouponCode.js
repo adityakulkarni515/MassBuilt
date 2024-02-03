@@ -13,12 +13,12 @@ async function createCouponCode(req,res){
 
     const code = voucher_codes.generate({
         length: 8,
-        count: 5
+        count: 1
     });
 
     await Coupon.create({
     
-       couponCode:code,
+       couponCode:code[0],
        discountAmount:body.discountAmount,
        gymId:body.gymId,
        subscriptionId:body.subscriptionId,
@@ -27,10 +27,10 @@ async function createCouponCode(req,res){
 
       });
 
-    for(var i=0; i<length(memberIds); i++){
+    for(const memberId of body.memberIds){
 
         await Member.findOneAndUpdate(
-            { memberId: memberIds[i]},
+            { memberId: memberId},
             {
                 $push: {
                     applicableCouponCodes:code,

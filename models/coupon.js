@@ -12,7 +12,7 @@ const couponSchema= new mongoose.Schema({
         requried:true
     },
     gymId:{
-        type:String,
+        type:Number,
         required : true,
     },
     subscriptionId:{
@@ -26,7 +26,7 @@ const couponSchema= new mongoose.Schema({
     }
     ,
     applicableMemberIds:{
-        type:[String],
+        type:[Number],
         required : true,
     }
 
