@@ -7,6 +7,9 @@ async function updatePendingSubscription(req,res){
   body=req.body
 
   const transactionDetails = await Transaction.findOne({transactionId: body.transactionId})
+  if(!(transactionDetails)){
+    return res.status(400).json({message:"Transaction id not found"})
+  }
 
   console.log(transactionDetails)
   console.log("updatePending")

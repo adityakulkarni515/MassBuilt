@@ -16,11 +16,11 @@ const GymSubscriptionRouter=require("./routes/memberSubscription")
 const addMemberDetailsRouter=require("./routes/addMemberDetails")
 const adminChangesRouter=require("./routes/adminChanges")
 const updatePendingSubscriptionRoute= require('./routes/updatePendingSubscription');
-const adminGymUpdate=require("./routes/pendingAdminGymUpdate")
+const pendingAdminGymUpdate=require("./routes/pendingAdminGymUpdate")
 const createCouponCode=require("./routes/createCouponCode")
 const useCouponCode=require("./routes/useCouponCode")
 const {connectToMongoDb}=require("./connections");
-
+const{updatePendingAdminChanges}=require("./controllers/24hours")
 require('dotenv').config()
 
 
@@ -54,7 +54,11 @@ app.use("/",adminChangesRouter)
 app.use("/",updatePendingSubscriptionRoute)
 app.use("/",createCouponCode)
 app.use("/",useCouponCode)
-// app.use("/",adminChangesRouter)
+app.use("/",pendingAdminGymUpdate)
+
+
+const intervalInMilliseconds =  10 * 1000; // 24 hours in milliseconds
+setInterval(updatePendingAdminChanges, intervalInMilliseconds);
 
 
 const PORT =process.env.PORT||4000

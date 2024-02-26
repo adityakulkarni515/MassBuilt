@@ -10,12 +10,21 @@ const AdminChanges = require("../models/adminChanges");
 
 
 async function generatechangeRequestId(req, res, next) {
+    
     try {
+
+        body = req.body
 
         console.log("hi middleware from change request id creation")
 
+        const isChangeRequestPendingCheck= await AdminChanges.exists({ adminId:body.adminId, status: 'Pending' });
+  
+  if(isChangeRequestPendingCheck){
+    return res.status(400).json({message:"User has a pending Change Request for gym plan Updation from middleware"})
+  }
 
-        checkAlreadyUser= await AdminChanges.findOne({ changeRequestId:req.body.changeRequestId})
+
+        checkAlreadyUser= await AdminChanges.findOne({ changeRequestId:body.changeRequestId})
 
         console.log(checkAlreadyUser)
 
@@ -33,7 +42,7 @@ async function generatechangeRequestId(req, res, next) {
         
         
         // Attach the generated gymId to the request object
-        req.body.changeRequestId = changeRequestId;
+        body.changeRequestId = changeRequestId;
        
         
 

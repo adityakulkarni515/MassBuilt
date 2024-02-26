@@ -1,11 +1,9 @@
-// const express= require("express")
+const express= require("express")
 
-// const{adminSubscriptionChanges}=require("../controllers/adminGymUpdate")
-// const { generatechangeRequestId } = require("../middlewares/changeRequestId")
-// const { updatePendingUpdateSubscription } = require("../controllers/updatePendingAdminChanges")
+const { updatePendingAdminUpdateSubscription } = require("../controllers/updatePendingAdminChanges")
 
-// const router=express.Router()
+const router=express.Router()
 
-// router.post('/adminGymUpdate',generatechangeRequestId, adminSubscriptionChanges,updatePendingUpdateSubscription)
+router.post('/pendingadminGymUpdate',updatePendingAdminUpdateSubscription)
 
-// module.exports=router
+module.exports=router

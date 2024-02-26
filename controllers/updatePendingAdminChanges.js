@@ -17,9 +17,15 @@ async function unixToDate(unix_timestamp){
   return dateString
 }
 
-async function updatePendingUpdateSubscription(req,res){
+async function updatePendingAdminUpdateSubscription(req,res){
 
   body=req.body
+
+  if(!(body.adminId||body.gymId||body.changeRequestId||body.changeDate)){
+
+    return res.status(400).json({message:"incorrect payload"})
+
+  }
 
   const adminChangesDetails = await AdminChanges.findOne({adminId: body.adminId})
 
@@ -36,13 +42,23 @@ async function updatePendingUpdateSubscription(req,res){
     return res.status(400).json({message:"This gym id does not exist"})
   }
 
+// Get the current date
+const todaysDate = new Date();
 
-  const unix_timestamp = Date.now()
-  const currentDate = await unixToDate(unix_timestamp)
-  const changeDate = await unixToDate((body.changeDate)*1000)
+// Extract year, month, and day components
+const year = todaysDate.getUTCFullYear();
+const month = String(todaysDate.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-based
+const day = String(todaysDate.getUTCDate()).padStart(2, '0');
 
-  console.log(currentDate, changeDate)
-  if( changeDate != currentDate){
+// Construct the date string
+const currentDate= `${year}-${month}-${day}T00:00:00.000+00:00`;
+
+console.log(currentDate); // Output: "2024-02-25T00:00:00.000+00:00"
+
+ 
+
+  console.log(currentDate)
+  if( body.changeDate != currentDate){
     return res.status(400).json({message:"Today is not the change date of subscription updation"})
   }
 
@@ -72,4 +88,4 @@ async function updatePendingUpdateSubscription(req,res){
     return res.status(201).json({msg: 'You have suscribed to gym successfully'})
 }
 
-module.exports={updatePendingUpdateSubscription}
+module.exports={updatePendingAdminUpdateSubscription}
