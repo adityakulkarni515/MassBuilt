@@ -9,7 +9,7 @@ async function updatePendingAdminChanges() {
 
     console.log(pendingAdminChanges.length)
 
-    if(pendingAdminChanges.length===0){
+    if(!(pendingAdminChanges)){
         
     return console.log('no pending admin changes');
     }
