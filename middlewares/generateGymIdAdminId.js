@@ -2,7 +2,7 @@
 const Admin=require("../models/admin")
 
 
-
+``
 async function generateAdminId(req, res, next) {
     try {
 

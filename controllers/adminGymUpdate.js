@@ -27,15 +27,27 @@ async function adminSubscriptionChanges(req,res,next){
     return res.status(400).json({message:"This gym Id is does not exist"})
   }
 
-
-  if(!((body.changeDate)*1000 - Date.now() >= 0)){
+  dt = new Date(body.changeDate)
+  const unixs=await dt.getTime()
+  console.log(unixs)
+  const k=await ((unixs) - Date.now())
+  console.log(k)
+  console.log(Date.now())
+  if(!((unixs) - Date.now() >= 0)){
 
     return res.status(400).json({message:"invalid change date entered"})
 
   }
 
+  const isChangeRequestPendingCheck= await AdminChanges.exists({ adminId: body.adminId, status: 'Pending' });
+  
+  if(isChangeRequestPendingCheck){
+    return res.status(400).json({message:"User has a pending Change Request for gym plan Updation"})
+  }
 
 
+
+  console.log(Date(body.changeDate))
 
   const addChangesInPending = await AdminChanges.create(
 
@@ -45,7 +57,7 @@ async function adminSubscriptionChanges(req,res,next){
             status:"Pending",
             adminId:body.adminId,
             gymId:body.gymId,
-            changeDate:(body.changeDate)*1000
+            changeDate:unixs
         },
     
     )

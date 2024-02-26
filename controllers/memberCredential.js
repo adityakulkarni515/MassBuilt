@@ -65,6 +65,7 @@ async function memberSignUp(req,res){
           }
 
           else{
+            console.log("your logged in successfully")
               return res.status(200).json({message:"User logged in successfully"})
           }
           // } else {

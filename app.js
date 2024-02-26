@@ -1,5 +1,7 @@
 const express = require('express')
+const cors = require('cors');
 const app = express()
+app.use(cors())
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -21,7 +23,7 @@ const {connectToMongoDb}=require("./connections");
 
 require('dotenv').config()
 
-const PORT = process.env.PORT||4000
+
 
 
 // password===V7kR3kWBAkbhmDsD
@@ -55,7 +57,7 @@ app.use("/",useCouponCode)
 // app.use("/",adminChangesRouter)
 
 
-
+const PORT =process.env.PORT||4000
 
 
 // for local run

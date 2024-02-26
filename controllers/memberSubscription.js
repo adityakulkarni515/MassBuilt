@@ -48,6 +48,13 @@ async function memberSubscription(req,res,next){
   if(!(startDateNightTimestamp - tonightDateTimestamp <= 15 * ONE_DAY && startDateNightTimestamp - nowTimestamp >= 0)){
     return res.status(400).json({message:"Date is more than 15 days or less than 0 days"})
   }
+  const isTransactionPendingCheck= await Transaction.exists({ memberId: body.memberId, status: 'Pending' });
+  
+  if(isTransactionPendingCheck){
+    return res.status(400).json({message:"User has a pending transaction for gym subscription"})
+  }
+
+  console.log(isTransactionPendingCheck)
   
   const addTransactionDetails = await Transaction.create({
     gymId : body.gymId,
