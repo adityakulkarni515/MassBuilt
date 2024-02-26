@@ -7,9 +7,11 @@ async function updatePendingAdminChanges() {
     // Find all admin changes with status 'Pending'
     const pendingAdminChanges = await AdminChanges.find({ status: 'Pending' });
 
-    if(!(pendingAdminChanges)){
+    console.log(pendingAdminChanges.length)
 
-    return ("no pending admin changes ")
+    if(pendingAdminChanges.length===0){
+        
+    return console.log('no pending admin changes');
     }
 
 
