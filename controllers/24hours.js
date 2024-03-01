@@ -21,6 +21,26 @@ async function updatePendingAdminChanges() {
     for (const adminChange of pendingAdminChanges) {
       // Perform the necessary update operations for each admin change
 
+      // Get the current date
+const todaysDate = new Date();
+
+// Extract year, month, and day components
+const year = todaysDate.getUTCFullYear();
+const month = String(todaysDate.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-based
+const day = String(todaysDate.getUTCDate()).padStart(2, '0');
+
+// Construct the date string
+const currentDate= `${year}-${month}-${day}T00:00:00.000+00:00`;
+
+console.log(currentDate); // Output: "2024-02-25T00:00:00.000+00:00"
+
+
+      console.log(currentDate)
+      if( pendingAdminChanges.changeDate != currentDate){
+        return console.log("no today")
+      }
+    
+
       const updateGymDetails = await Gym.findOneAndUpdate(
         { gymId: adminChange.gymId },
         {
