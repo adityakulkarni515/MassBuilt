@@ -57,7 +57,7 @@ app.use("/",useCouponCode)
 app.use("/",pendingAdminGymUpdate)
 
 
-const intervalInMilliseconds =  10 * 1000; // 24 hours in milliseconds
+const intervalInMilliseconds =  8*1000 * 1000; // 24 hours in milliseconds
 setInterval(updatePendingAdminChanges, intervalInMilliseconds);
 
 

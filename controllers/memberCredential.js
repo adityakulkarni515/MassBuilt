@@ -1,10 +1,10 @@
 
 const MemberCredential=require("../models/memberCredential")
-
+const jwt = require('jsonwebtoken');
 const Member=require("../models/members")
 const bcrypt=require("bcrypt")
 
-
+const jwtKey="KEY"
   
 
 async function memberSignUp(req,res){
@@ -26,7 +26,8 @@ async function memberSignUp(req,res){
 
       // Save user data (in a real app, use a database)
      
-      
+      // Sign a JWT token with the user ID
+   
 
     
     
@@ -62,11 +63,14 @@ async function memberSignUp(req,res){
           if (!matchPassword) {
               return res.status(401).json({ message: "incorrect id or password" });
 
+        
+
           }
 
           else{
+            const token = await jwt.sign({ emailId: existingUser.emailId }, jwtKey, { expiresIn: '1h' });
             console.log("your logged in successfully")
-              return res.status(200).json({message:"User logged in successfully"})
+              return res.status(200).json({message:"User logged in successfully",tokenId:token})
           }
           // } else {
   
