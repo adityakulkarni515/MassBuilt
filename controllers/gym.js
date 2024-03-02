@@ -56,8 +56,19 @@ async function hostGymOnApp(req,res){
         areaCode:body.areaCode,
         services:body.services,
         gymMedia:body.gymMedia
+        
 
       });
+      const updateAdminStatus=await Admin.findOneAndUpdate({adminId:body.adminId},
+        
+    {
+      $set: {
+          
+          status:"active",
+        
+      }
+    }
+        )
     
       console.log('result', addGymDetails)
       return res.status(201).json({msg: 'Your gym has been hosted successfully'})

@@ -30,6 +30,7 @@ async function approvedToAddInAdmin(req,res){
         gymName:body.gymName,
         contactNumber:body.contactNumber,
         adminId:body.adminId,
+        status:"guest"
         
     
       });
@@ -39,7 +40,7 @@ async function approvedToAddInAdmin(req,res){
     }
 
 
-    
+
 
     async function getAdminDetails(req,res){
 
@@ -66,7 +67,7 @@ async function approvedToAddInAdmin(req,res){
         
       
         console.log('result', checkIfAdmin)
-        return res.status(201).json({msg: 'success',"Admin Details":checkIfAdmin})
+        return res.status(200).json({msg: 'success',"Admin Details":checkIfAdmin})
       }
   
 
