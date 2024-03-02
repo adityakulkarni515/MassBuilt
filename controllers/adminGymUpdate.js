@@ -46,6 +46,8 @@ const currentDateForm = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
   // const k=await ((unixs) - Date.now())
   // console.log(k)
   // console.log(Date.now())
+  const changeDate = new Date(body.changeDate);
+
   if(!(changeDate.getTime() - currentDateForm.getTime()>= 0)){
 
     return res.status(400).json({message:"invalid change date entered"})
@@ -76,7 +78,7 @@ const currentDateForm = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
     )
 
 
-    if(body.changeDate.getTime() === currentDateForm .getTime() ){
+    if(changeDate.getTime() === currentDateForm .getTime() ){
       next()
     }
 
