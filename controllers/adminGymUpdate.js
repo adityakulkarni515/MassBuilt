@@ -26,14 +26,27 @@ async function adminSubscriptionChanges(req,res,next){
   if(!checkGymId){
     return res.status(400).json({message:"This gym Id is does not exist"})
   }
+// Get the current date in IST
+const currentDateIST = new Date();
+currentDateIST.setHours(currentDateIST.getHours() + 5); // Adding 5 hours for IST
+currentDateIST.setMinutes(currentDateIST.getMinutes() + 30); // Adding 30 minutes for IST
 
-  dt = new Date(body.changeDate)
-  const unixs=await dt.getTime()
-  console.log(unixs)
-  const k=await ((unixs) - Date.now())
-  console.log(k)
-  console.log(Date.now())
-  if(!((unixs) - Date.now() >= 0)){
+// Extract year, month, and day components
+const year = currentDateIST.getUTCFullYear();
+const month = String(currentDateIST.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-based
+const day = String(currentDateIST.getUTCDate()).padStart(2, '0');
+
+// Construct the date string
+const currentDateForm = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
+
+  
+  // dt = new Date(body.changeDate)
+  // const unixs=await dt.getTime()
+  // console.log(unixs)
+  // const k=await ((unixs) - Date.now())
+  // console.log(k)
+  // console.log(Date.now())
+  if(!(changeDate.getTime() - currentDateForm.getTime()>= 0)){
 
     return res.status(400).json({message:"invalid change date entered"})
 
@@ -47,7 +60,7 @@ async function adminSubscriptionChanges(req,res,next){
 
 
 
-  console.log(Date(body.changeDate))
+  console.log(body.changeDate)
 
   const addChangesInPending = await AdminChanges.create(
 
@@ -57,13 +70,13 @@ async function adminSubscriptionChanges(req,res,next){
             status:"Pending",
             adminId:body.adminId,
             gymId:body.gymId,
-            changeDate:unixs
+            changeDate:body.changeDate
         },
     
     )
 
 
-    if((body.changeDate)*1000 - Date.now() <= 1 * ONE_DAY){
+    if(body.changeDate.getTime() === currentDateForm .getTime() ){
       next()
     }
 

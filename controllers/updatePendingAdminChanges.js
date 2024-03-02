@@ -21,13 +21,13 @@ async function updatePendingAdminUpdateSubscription(req,res){
 
   body=req.body
 
-  if(!(body.adminId||body.gymId||body.changeRequestId||body.changeDate)){
+  if(!(body||body.changeRequestI)){
 
     return res.status(400).json({message:"incorrect payload"})
 
   }
 
-  const adminChangesDetails = await AdminChanges.findOne({adminId: body.adminId})
+  const adminChangesDetails = await AdminChanges.findOne({changeRequestId: body.changeRequestId})
 
   console.log(adminChangesDetails)
   console.log("updatePending")
@@ -43,34 +43,35 @@ async function updatePendingAdminUpdateSubscription(req,res){
   }
 
 // Get the current date
-const todaysDate = new Date();
+ // Get the current date in IST
+ const currentDateIST = new Date();
+ currentDateIST.setHours(currentDateIST.getHours() + 5); // Adding 5 hours for IST
+ currentDateIST.setMinutes(currentDateIST.getMinutes() + 30); // Adding 30 minutes for IST
 
-// Extract year, month, and day components
-const year = todaysDate.getUTCFullYear();
-const month = String(todaysDate.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-based
-const day = String(todaysDate.getUTCDate()).padStart(2, '0');
+ // Extract year, month, and day components
+ const year = currentDateIST.getUTCFullYear();
+ const month = String(currentDateIST.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-based
+ const day = String(currentDateIST.getUTCDate()).padStart(2, '0');
 
-// Construct the date string
-const currentDate= `${year}-${month}-${day}T00:00:00.000+00:00`;
-
-console.log(currentDate); // Output: "2024-02-25T00:00:00.000+00:00"
+ // Construct the date string
+ const currentDateForm = new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
 
  
 
-  console.log(currentDate)
-  if( body.changeDate != currentDate){
-    return res.status(400).json({message:"Today is not the change date of subscription updation"})
-  }
+  console.log(currentDateForm)
+  if( adminChangesDetails.changeDate.getTime() === currentDateForm.getTime()){
+   
+  
 
   
 
   const updateGymDetails = await Gym.findOneAndUpdate(
-      { adminId: body.adminId },
+      { adminId: adminChangesDetails.adminId },
       {
           $set: {
               changeRequestId:body.changeRequestId,
-              subscriptionDetails:body.subscriptionDetails,
-              gymId:body.gymId
+              subscriptionDetails:adminChangesDetails.subscriptionDetails
+          
           },
       }
   )
@@ -85,7 +86,10 @@ console.log(currentDate); // Output: "2024-02-25T00:00:00.000+00:00"
     )
 
     console.log('result',updateGymDetails, updateAdminChangesDetails)
-    return res.status(201).json({msg: 'You have suscribed to gym successfully'})
+    return res.status(201).json({msg: 'Your gym change are done successfully '})
+  }
+
+    return res.status(400).json({message:"Today is not the change date of subscription updation"})
 }
 
 module.exports={updatePendingAdminUpdateSubscription}

@@ -20,7 +20,11 @@ async function generateTransactionId(req, res, next) {
        return res.status(400).json({message: "sorry for inconvinence please retry"})
       }
 
-    
+      checkAlreadySubscribed= await Member.findOne({ memberId:req.body.memberId,status:"active"})
+
+      if(checkAlreadySubscribed){
+       return res.status(400).json({message: "You are already subscribed to gym coming from middle ware "})
+      }
         // Generate a random number between 10000000 and 99999999
        
         let transactionId = Math.floor(Math.random()* (99999999 - 10000000 + 1) + 10000000);
