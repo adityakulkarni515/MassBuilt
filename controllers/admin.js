@@ -38,4 +38,37 @@ async function approvedToAddInAdmin(req,res){
       return res.status(201).json({msg: 'success'})
     }
 
-    module.exports={approvedToAddInAdmin}
+
+    
+
+    async function getAdminDetails(req,res){
+
+      let body=req.body
+  
+      console.log(body)
+  
+      if(!body ||!body.adminId)
+
+        {
+          return res.status(400).json({message: 'All the field are required'})
+        }
+      
+        checkIfAdmin= await Admin.findOne({ adminId:body.adminId  })
+
+
+        console.log(checkIfAdmin)
+  
+  
+         if(!checkIfAdmin)
+        {
+        return res.status(400).json({message:"Admin Dont exeist"})
+        }
+        
+      
+        console.log('result', checkIfAdmin)
+        return res.status(201).json({msg: 'success',"Admin Details":checkIfAdmin})
+      }
+  
+
+
+    module.exports={approvedToAddInAdmin, getAdminDetails}

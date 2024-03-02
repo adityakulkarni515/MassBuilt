@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const adminSchema= new mongoose.Schema({
 
     adminId:{
-        type:String,
+        type:Number,
         required : true,
     },
     name:{

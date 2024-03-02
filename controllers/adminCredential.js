@@ -2,6 +2,8 @@
 const AdminCredential=require("../models/adminCredential")
 const Admin=require("../models/admin")
 const bcrypt=require("bcrypt")
+const jwt=require("jsonwebtoken")
+const jwtKey = "KEY";
 
 async function adminSignUp(req,res){
 
@@ -34,10 +36,11 @@ async function adminSignUp(req,res){
         adminId:checkAdmin.adminId,
         password:hashPassword
 
-      });
+      }); 
+      const token = await jwt.sign({ emailId: check.emailId }, jwtKey, { expiresIn: '1h' });
     
       console.log('result', addAdminCredential)
-      return res.status(201).json({msg: 'You have been registered successfully'})
+      return res.status(201).json({msg: 'You have been registered successfully',tokenId:token})
 }
 
 
@@ -57,7 +60,8 @@ async function adminSignIn (req, res) {
         }
 
         else{
-            return res.status(200).json({message:"admin logged in successfully"})
+          const token = await jwt.sign({ emailId: existingAdmin.emailId }, jwtKey, { expiresIn: '1h' });
+            return res.status(200).json({message:"admin logged in successfully",tokenId:token})
         }
 
         

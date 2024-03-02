@@ -8,7 +8,7 @@ const adminCredentialSchema= new mongoose.Schema({
     }
     ,
     adminId:{
-        type:String,
+        type:Number,
         required: true
     },
    

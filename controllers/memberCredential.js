@@ -44,9 +44,12 @@ async function memberSignUp(req,res){
         emailId:body.emailId,
         status:"guest"
       })
+
+
+      const token = await jwt.sign({ emailId: body.emailId }, jwtKey, { expiresIn: '1h' });
     
-      console.log('result', addMemberCredential,addMemebrIdToMember)
-      return res.status(201).json({msg: 'You have been registered successfully'})
+      console.log('result', addMemberCredential,addMemebrIdToMember,token)
+      return res.status(201).json({msg: 'You have been registered successfully',tokenId:token})
     }
 
 
