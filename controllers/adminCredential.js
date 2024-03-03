@@ -49,6 +49,8 @@ async function adminSignIn (req, res) {
     
 
     try {
+
+          
         const existingAdmin= await AdminCredential.findOne({ emailId:body.emailId});
         if (!existingAdmin) {
             return res.status(404).json({ message: "Admin not found" });
@@ -56,12 +58,11 @@ async function adminSignIn (req, res) {
         const matchPassword= await bcrypt.compare(body.password, existingAdmin.password)
         if (!matchPassword) {
             return res.status(401).json({ message: "incorrect id or password" });
-
         }
-
         else{
+          const adminDetails=await Admin.findOne({emailId:body.emailId})
           const token = await jwt.sign({ emailId: existingAdmin.emailId }, jwtKey, { expiresIn: '1h' });
-            return res.status(200).json({message:"admin logged in successfully",tokenId:token})
+            return res.status(200).json({message:"admin logged in successfully",tokenId:token,adminDetails})
         }
 
         

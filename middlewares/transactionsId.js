@@ -48,9 +48,6 @@ async function generateTransactionId(req, res, next) {
 
 
 
-
-
-
 module.exports={
     generateTransactionId
     
