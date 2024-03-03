@@ -46,7 +46,7 @@ async function adminSignUp(req,res){
 
 async function adminSignIn (req, res) {
     let body  = req.body;
-    console.log(body)
+    
 
     try {
         const existingAdmin= await AdminCredential.findOne({ emailId:body.emailId});

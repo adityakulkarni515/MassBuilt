@@ -11,7 +11,7 @@ const { authJwtMiddlewareForAdmin } = require("../middlewares/authForAdmin")
 const { getGymIdAdminId } = require("../controllers/gymIdAdminId")
 const { noOfGymMembers } = require("../controllers/noOfGymMembers")
 const { getAdminDetails } = require("../controllers/admin")
-const { addMediaToGym, uploadImages } = require("../controllers/addMedia")
+
 
 const router=express.Router()
 
@@ -31,7 +31,7 @@ router.post('/noOfActiveMembers',noOfGymMembers)
 
 router.post('/getAdminDetails',getAdminDetails)
 
-router.post('/upload',uploadImages)
+
 
 
 

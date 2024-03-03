@@ -58,6 +58,12 @@ async function memberSignUp(req,res){
       let body  = req.body;
   
       try {
+
+        if(!body ||!body.emailId||!body.password)
+        {
+          return res.status(400).json({message: 'All the field are required'})
+        }
+      
           const existingUser= await MemberCredential.findOne({ emailId:body.emailId });
           if (!existingUser) {
               return res.status(404).json({ message: "User not found" });
