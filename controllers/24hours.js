@@ -11,7 +11,7 @@ const month = String(todaysDate.getUTCMonth() + 1).padStart(2, '0'); // Months a
 const day = String(todaysDate.getUTCDate()).padStart(2, '0');
 
 // Construct the date string
-const currentDate= `${year}-${month}-${day}T00:00:00.000+00:00`;
+const currentDate= new Date(`${year}-${month}-${day}T00:00:00.000+00:00`);
 
 console.log(currentDate); // Output: "2024-02-25T00:00:00.000+00:00"
     // Find all admin changes with status 'Pending'
@@ -32,15 +32,12 @@ console.log(currentDate); // Output: "2024-02-25T00:00:00.000+00:00"
       // Perform the necessary update operations for each admin change
 
       // Get the current date
-const todaysDate = new Date();
-
 
 
 
       console.log(currentDate)
-      if( pendingAdminChanges.changeDate != currentDate){
-        return console.log("not today")
-      }
+      if( pendingAdminChanges.changeDate === currentDate){
+        
     
 
       const updateGymDetails = await Gym.findOneAndUpdate(
@@ -61,7 +58,16 @@ const todaysDate = new Date();
 
       console.log('Admin changes updated:', updateGymDetails, updateAdminChangesDetails);
     }
-  } catch (error) {
+    else{
+      return console.log("")
+    }
+  }
+  
+}
+
+  
+  
+  catch (error) {
     console.error('Error updating admin changes:', error.message);
   }
 }

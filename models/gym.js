@@ -68,4 +68,4 @@ const gymSchema= new mongoose.Schema({
 
 const Gym= mongoose.model('gym', gymSchema)
 
- module.exports={Gym}
+ module.exports=Gym
