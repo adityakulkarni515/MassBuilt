@@ -1,6 +1,7 @@
 
 const mongoose = require('mongoose');
 
+
 const gymSchema= new mongoose.Schema({
 
     changeRequestId:{
@@ -52,14 +53,8 @@ const gymSchema= new mongoose.Schema({
     facilities:{
         type:Array,
         required:true
-    }
-    ,
-    gymMedia:{
-        
-        data: Buffer,
-        contentType:String,
-        
     },
+    
     subscriptionDetails: [
         {
           type: Map,
@@ -69,6 +64,8 @@ const gymSchema= new mongoose.Schema({
 
     })
 
- const Gym= mongoose.model('gym', gymSchema)
+ 
 
- module.exports=Gym
+const Gym= mongoose.model('gym', gymSchema)
+
+ module.exports={Gym}
