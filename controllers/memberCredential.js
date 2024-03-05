@@ -2,7 +2,8 @@
 const MemberCredential=require("../models/memberCredential")
 const jwt = require('jsonwebtoken');
 const Member=require("../models/members")
-const bcrypt=require("bcrypt")
+const bcrypt=require("bcrypt");
+const VerifiedUser = require("../models/adminVerify");
 
 const jwtKey="KEY"
   
@@ -10,6 +11,13 @@ const jwtKey="KEY"
 async function memberSignUp(req,res){
 
     let body=req.body
+
+  const checkverified=await VerifiedUser.findOne({email:body.emailId,verified:true})
+    
+  if(!(checkverified))  
+  {
+    return res.status(400).json({message: 'email not verified'})
+  }
 
     if(!body ||!body.emailId||!body.password)
       {
