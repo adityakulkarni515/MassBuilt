@@ -65,9 +65,11 @@ async function hostGymOnApp(req,res){
       $set: {
           
           status:"active",
-        
+          gymId:body.gymId
+          
       }
     }
+    
         )
     
       console.log('result', addGymDetails)

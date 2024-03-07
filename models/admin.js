@@ -24,6 +24,10 @@ const adminSchema= new mongoose.Schema({
     contactNumber:{
         type:Number,
         required : true,
+    },
+     gymId:{
+        type:Number,
+        required : false,
     }
 
 
