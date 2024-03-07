@@ -5,6 +5,12 @@ const Gym = require("../models/gym");
 async function updatePendingAdminChanges() {
   try {
 
+    
+// Get the current date
+ // Get the current date in IST
+ const todaysDate = new Date();
+ todaysDate.setHours(todaysDate.getHours() + 5); // Adding 5 hours for IST
+ todaysDate.setMinutes(todaysDate.getMinutes() + 30); // Adding 30 minutes for IST
     // Extract year, month, and day components
 const year = todaysDate.getUTCFullYear();
 const month = String(todaysDate.getUTCMonth() + 1).padStart(2, '0'); // Months are zero-based
