@@ -61,8 +61,9 @@ async function adminSignIn (req, res) {
         }
         else{
           const adminDetails=await Admin.findOne({emailId:body.emailId})
+          const adminId=adminDetails.adminId
           const token = await jwt.sign({ emailId: existingAdmin.emailId }, jwtKey, { expiresIn: '1h' });
-            return res.status(200).json({message:"admin logged in successfully",tokenId:token,adminDetails})
+            return res.status(200).json({message:"admin logged in successfully",tokenId:token,adminId})
         }
 
         
