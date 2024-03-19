@@ -28,6 +28,10 @@ const adminSchema= new mongoose.Schema({
      gymId:{
         type:Number,
         required : false,
+    },
+    status:{
+        type:String,
+        required : true,
     }
 
 
