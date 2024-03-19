@@ -8,7 +8,7 @@ const { generateGymId}=require("../middlewares/generateGymIdAdminId")
 
 const { addGymSubscription } = require("../controllers/addGymSubscription")
 
-router.post('/gymhosting', generateGymId,hostGymOnApp)
+router.post('/hostgym', generateGymId,hostGymOnApp)
 
 router.post('/addGymSubscription', addGymSubscription)
 
