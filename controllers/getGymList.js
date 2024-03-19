@@ -9,12 +9,12 @@ async function getGymList(req,res){
 
     let body=req.body
 
-    if(!body||!body.areaCode)
+    if(!body||!body.pinCode)
       {
         return res.status(400).json({message: 'All the field are required'})
       }
     
-      checkIsGym = await Gym.find({areaCode:body.areaCode})
+      checkIsGym = await Gym.find({pinCode:body.pinCode})
       
       console.log(checkIsGym)
     //to check if there is any other gym already with this gym id 

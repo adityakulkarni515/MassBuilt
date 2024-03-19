@@ -37,7 +37,7 @@ async function adminSignUp(req,res){
         password:hashPassword
 
       }); 
-      const token = await jwt.sign({ emailId: check.emailId }, jwtKey, { expiresIn: '1h' });
+      const token = await jwt.sign({ emailId: checkAdmin.emailId }, jwtKey, { expiresIn: '1h' });
     
       console.log('result', addAdminCredential)
       return res.status(201).json({msg: 'You have been registered successfully',tokenId:token})

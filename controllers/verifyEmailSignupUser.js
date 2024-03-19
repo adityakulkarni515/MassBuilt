@@ -25,9 +25,13 @@ async function verifyEmailIdOfUser(req, res) {
         }
         
 
-        const existingUser = await VerifiedUser.findOne({ email });
+        const existingUser = await VerifiedUser.findOne({ email, verified:true });
 
-        if (existingUser && existingUser.verified) {
+        console.log(existingUser)
+
+        console.log(existingUser)
+
+        if (existingUser) {
             return res.status(400).json({ message: 'User already verified' });
         }
 

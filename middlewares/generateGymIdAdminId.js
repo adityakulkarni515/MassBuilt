@@ -2,14 +2,16 @@
 const Admin=require("../models/admin")
 
 
-``
+
 async function generateAdminId(req, res, next) {
+
+
     try {
 
         console.log("hi middleware from adminid creation")
 
 
-        checkAlreadyAdmin= await Admin.findOne({ emailId:req.body.emailId  })
+       const checkAlreadyAdmin= await Admin.findOne({ emailId:req.body.emailId  })
 
       if(checkAlreadyAdmin){
        return res.status(400).json({message: "This gym is already a admin"})

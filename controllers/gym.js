@@ -9,7 +9,7 @@ async function hostGymOnApp(req,res){
 
     let body=req.body
 
-    if(!body ||!body.adminId||!body.gymId||!body.name||!body.gymName||!body.contactDetails||!body.address||!body.subscriptionDetails||!body.facilities||!body.services||!body.timing||!body.areaCode)
+    if(!body ||!body.adminId||!body.gymId||!body.gymName||!body.mobileNumber||!body.address||!body.facilities||!body.services||!body.timing||!body.pinCode||!body.stateName||!body.cityName)
       {
         return res.status(400).json({message: 'All the field are required'})
       }
@@ -46,16 +46,16 @@ async function hostGymOnApp(req,res){
     
         gymId : body.gymId,
         adminId:body.adminId,
-        name :body.name,
         gymName:body.gymName,
-        contactDetails:body.contactDetails,
+        mobileNumber:body.mobileNumber,
         address:body.address,
-        subscriptionDetails:body.subscriptionDetails,
         facilities:body.facilities,
         timing:body.timing,
-        areaCode:body.areaCode,
+        pinCode:body.pinCode,
         services:body.services,
-        gymMedia:body.gymMedia
+        cityName:body.cityName,
+        stateName:body.stateName
+
         
 
       });

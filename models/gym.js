@@ -22,21 +22,18 @@ const gymSchema= new mongoose.Schema({
         type:String,
         required : true,
     },
-    name:{
-        type:String,
-        required:true
-    },
+   
     address:{
         type:String,
         required:true
     }
     ,
-    contactDetails:{
+    mobileNumber:{
         type:Number,
         required:true
     }
     ,
-    areaCode:{
+    pinCode:{
         type:Number,
         required:true
     },
@@ -55,13 +52,7 @@ const gymSchema= new mongoose.Schema({
         required:true
     },
     
-    subscriptionDetails: [
-        {
-          type: Map,
-          of: Map,
-        },
-      ],
-
+   
     })
 
  
