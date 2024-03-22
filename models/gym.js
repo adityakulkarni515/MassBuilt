@@ -9,6 +9,7 @@ const gymSchema= new mongoose.Schema({
         required : false,
     },
 
+
     adminId:{
         type:Number,
         required : true,
@@ -49,6 +50,14 @@ const gymSchema= new mongoose.Schema({
     ,
     facilities:{
         type:Array,
+        required:true
+    },
+    stateName:{
+        type:String,
+        required:true
+    },
+    cityName:{
+        type:String,
         required:true
     },
     

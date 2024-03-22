@@ -1,6 +1,6 @@
 const express= require("express")
 
-const{getGymList,getMemberList}=require("../controllers/getGymList")
+const{getGymList,getMemberList, getGymListByCityName}=require("../controllers/getGymList")
 
 const{daysToExpire}=require("../controllers/daysToExpire")
 
@@ -31,6 +31,7 @@ router.post('/noOfActiveMembers',noOfGymMembers)
 
 router.post('/getAdminDetails',getAdminDetails)
 
+router.post('/getGymListByCityName',getGymListByCityName)
 
 
 
