@@ -45,7 +45,7 @@ async function verifyEmailIdOfUser(req, res) {
             subject: 'Email Verification',  
             html: `
                 <p>Click the following link to verify your email:</p>
-                <a href="http://192.168.201.111:4000/verifyEmailOnClick/${verificationToken}">Verify Email</a>
+                <a href="https://massbuilt-production.up.railway.app/verifyEmailOnClick/${verificationToken}">Verify Email</a>
             `
         };
         await transporter.sendMail(mailOptions);
